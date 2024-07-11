@@ -19,5 +19,13 @@ router.get("/pedidoFarmacia/:farmacia", async (req, res) => {
   }
 });
 
+router.get("/pasillosPorFarmacia/:farmacia", async (req, res) => {
+  try {
+    await pasillerosController.pasillosPorFarmacia(req, res);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 module.exports = router;
 
