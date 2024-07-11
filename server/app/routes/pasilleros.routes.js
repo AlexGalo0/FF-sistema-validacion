@@ -10,4 +10,14 @@ router.get("/todasFarmacias", async (req, res) => {
   }
 });
 
+
+router.get("/pedidoFarmacia/:farmacia", async (req, res) => {
+  try {
+    await pasillerosController.pedidoDeFarmacia(req, res);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 module.exports = router;
+

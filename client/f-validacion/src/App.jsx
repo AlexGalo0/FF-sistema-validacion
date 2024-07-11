@@ -1,14 +1,14 @@
+import { Routes, Route } from 'react-router-dom';
+import SeleccionFarmacia from './components/SeleccionFarmacia';
+import FarmaciaDetalle from './components/FarmaciaDetalle'; // Asegúrate de tener este componente
 
-import './App.css'
-import FileUpload from './components/FileUpload'
-import SeleccionFarmacia from './components/SeleccionFarmacia'
-function App() {
-
+const App = () => {
   return (
-    <>
-      <SeleccionFarmacia />
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<SeleccionFarmacia />} />
+      <Route path="/farmacia/:farmacia" element={<FarmaciaDetalle />} />
+    </Routes>
+  );
+};
 
-export default App
+export default App;
