@@ -7,15 +7,11 @@ exports.uploadExcel = async (req, res) => {
   const filePath = req.file.path;
 
   try {
-    // Read the file
+   //lectura del archivo excel
     const workbook = XLSX.readFile(filePath);
     const sheetName = workbook.SheetNames[0];
     const worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-
-    // Connect to the database
     const pool = await sql.connect(dbconfig);
-
-    // Insert data into the database
     const request = pool.request();
     for (const row of worksheet) {
       const query = `
@@ -33,13 +29,10 @@ exports.uploadExcel = async (req, res) => {
       `;
       await request.query(query);
     }
-
-    // Remove the file after processing
     fs.unlinkSync(filePath);
-
-    res.send('File uploaded and data inserted into database');
+    res.send('Insersion exitosa');
   } catch (err) {
     console.error(err);
-    res.status(500).send('Database connection or file processing error');
+    res.status(500).send('Error al insertar datos en la base de datos');
   }
 };
