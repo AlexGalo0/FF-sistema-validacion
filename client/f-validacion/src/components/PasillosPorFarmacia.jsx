@@ -1,24 +1,26 @@
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const PasillosPorFarmacia = () => {
+  const { farmacia } = useParams();
   const [pasillos, setPasillos] = useState([]);
 
   useEffect(() => {
     const fetchPasillos = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/farmacias/pasillosPorFarmacia/F099');
+        const response = await axios.get(`http://localhost:3000/farmacias/pasillosPorFarmacia/${farmacia}`);
         setPasillos(response.data);
       } catch (error) {
         console.error('Error fetching pasillos:', error);
       }
     };
     fetchPasillos();
-  }, []);
+  }, [farmacia]);
 
   return (
     <div className="flex flex-col items-center min-h-screen">
-      <h1 className="text-3xl pb-5 font-semibold">Pasillos de la Farmacia F099</h1>
+      <h1 className="text-3xl pb-5 font-semibold">Pasillos de la Farmacia {farmacia}</h1>
       <div className="grid grid-cols-1 gap-4">
         {pasillos.map((item, index) => (
           <button

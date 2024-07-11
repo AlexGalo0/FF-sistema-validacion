@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const FarmaciaDetalle = () => {
   const { farmacia } = useParams();
   const [pedido, setPedido] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPedido = async () => {
@@ -17,6 +18,10 @@ const FarmaciaDetalle = () => {
     };
     fetchPedido();
   }, [farmacia]);
+
+  const handleVerPasillos = () => {
+    navigate(`/pasillos/${farmacia}`);
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -39,6 +44,12 @@ const FarmaciaDetalle = () => {
                 </li>
               ))}
             </ul>
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+              onClick={handleVerPasillos}
+            >
+              Ver Pasillos
+            </button>
           </div>
         ) : (
           <p className="mt-4">Cargando detalles del pedido...</p>
